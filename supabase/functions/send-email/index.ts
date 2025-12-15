@@ -28,7 +28,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification email to site owner
     const ownerEmailResponse = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["your-email@example.com"], // Replace with your actual email
+      to: ["sb7674481@gmail.com"],
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #0B0F14; color: #ffffff;">
@@ -48,47 +48,14 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Owner notification sent:", ownerEmailResponse);
 
-    // Send confirmation email to the person who submitted the form
-    const confirmationEmailResponse = await resend.emails.send({
-      from: "Surajit Bera <onboarding@resend.dev>",
-      to: [email],
-      subject: "Thanks for reaching out!",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #0B0F14; color: #ffffff;">
-          <h1 style="color: #00D9FF;">Thank you for your message, ${name}!</h1>
-          
-          <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0;">
-            I've received your message and appreciate you taking the time to reach out. 
-            I'll get back to you as soon as possible.
-          </p>
-          
-          <div style="background-color: #1a1f2e; padding: 20px; border-radius: 10px; margin: 20px 0;">
-            <p style="margin: 0; color: #888;">Your message:</p>
-            <p style="margin: 10px 0 0 0; color: #e0e0e0; font-style: italic;">"${message}"</p>
-          </div>
-          
-          <p style="font-size: 16px; color: #e0e0e0;">
-            Best regards,<br>
-            <span style="color: #00D9FF; font-weight: bold;">Surajit Bera</span><br>
-            AI & Computer Vision Developer
-          </p>
-          
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
-            <p style="color: #888; font-size: 12px;">
-              This is an automated response. Please don't reply to this email.
-            </p>
-          </div>
-        </div>
-      `,
-    });
-
-    console.log("Confirmation email sent:", confirmationEmailResponse);
+    // Note: Confirmation emails to visitors require a verified domain on Resend
+    // To enable this, verify your domain at https://resend.com/domains
+    // For now, only owner notifications are sent
 
     return new Response(
       JSON.stringify({ 
         success: true, 
         ownerEmail: ownerEmailResponse,
-        confirmationEmail: confirmationEmailResponse 
       }),
       {
         status: 200,

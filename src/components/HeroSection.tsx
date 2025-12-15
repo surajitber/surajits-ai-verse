@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
-  const [displayText, setDisplayText] = useState("");
-  const [currentLine, setCurrentLine] = useState(0);
+  const [completedLines, setCompletedLines] = useState<string[]>([]);
+  const [currentLineText, setCurrentLineText] = useState("");
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -16,28 +17,31 @@ const HeroSection = () => {
   ];
 
   useEffect(() => {
-    if (currentLine >= lines.length) {
+    if (currentLineIndex >= lines.length) {
       setIsTyping(false);
       return;
     }
 
-    const line = lines[currentLine];
+    const line = lines[currentLineIndex];
     let charIndex = 0;
 
     const typingInterval = setInterval(() => {
       if (charIndex <= line.length) {
-        setDisplayText(line.substring(0, charIndex));
+        setCurrentLineText(line.substring(0, charIndex));
         charIndex++;
       } else {
         clearInterval(typingInterval);
+        // Add completed line to array
+        setCompletedLines(prev => [...prev, line]);
+        setCurrentLineText("");
         setTimeout(() => {
-          setCurrentLine((prev) => prev + 1);
-        }, 1500);
+          setCurrentLineIndex(prev => prev + 1);
+        }, 800);
       }
     }, 50);
 
     return () => clearInterval(typingInterval);
-  }, [currentLine]);
+  }, [currentLineIndex]);
 
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
@@ -103,45 +107,42 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 mt-20">
-        <div className="mb-8 inline-flex items-center gap-2 glass px-4 py-2 rounded-full">
+        <div className="mb-8 inline-flex items-center gap-2 glass px-4 py-2 rounded-full animate-fade-in">
           <Sparkles className="w-4 h-4 text-neon-aqua" />
           <span className="text-sm text-muted-foreground font-medium">
             Welcome to my digital space
           </span>
         </div>
 
-        <div className="min-h-[200px] flex flex-col items-center justify-center">
-          {currentLine === 0 && (
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-glow-blue">
-              {displayText}
-              {isTyping && currentLine === 0 && (
-                <span className="animate-pulse">|</span>
+        <div className="min-h-[200px] flex flex-col items-center justify-center space-y-4">
+          {/* Line 1 - Name */}
+          {(completedLines.length > 0 || currentLineIndex === 0) && (
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-glow-blue transition-opacity duration-300">
+              {completedLines[0] || currentLineText}
+              {isTyping && currentLineIndex === 0 && (
+                <span className="animate-pulse text-neon-blue">|</span>
               )}
             </h1>
           )}
-          {currentLine === 1 && (
-            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 text-neon-purple text-glow-purple">
-              {displayText}
-              {isTyping && currentLine === 1 && (
-                <span className="animate-pulse">|</span>
+          
+          {/* Line 2 - Title */}
+          {(completedLines.length > 1 || currentLineIndex === 1) && (
+            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold text-neon-purple text-glow-purple transition-opacity duration-300">
+              {completedLines[1] || currentLineText}
+              {isTyping && currentLineIndex === 1 && (
+                <span className="animate-pulse text-neon-purple">|</span>
               )}
             </h2>
           )}
-          {currentLine >= 2 && (
-            <>
-              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-glow-blue">
-                {lines[0]}
-              </h1>
-              <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 text-neon-purple text-glow-purple">
-                {lines[1]}
-              </h2>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                {currentLine === 2 ? displayText : lines[2]}
-                {isTyping && currentLine === 2 && (
-                  <span className="animate-pulse">|</span>
-                )}
-              </p>
-            </>
+          
+          {/* Line 3 - Description */}
+          {(completedLines.length > 2 || currentLineIndex === 2) && (
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl transition-opacity duration-300">
+              {completedLines[2] || currentLineText}
+              {isTyping && currentLineIndex === 2 && (
+                <span className="animate-pulse text-neon-aqua">|</span>
+              )}
+            </p>
           )}
         </div>
 

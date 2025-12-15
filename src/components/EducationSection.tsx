@@ -24,7 +24,7 @@ const educationData = [
     year: "2022",
     description: "Image Processing, Object Detection, Pose Estimation",
     icon: BookOpen,
-    color: "from-neon-cyan to-neon-blue",
+    color: "from-neon-aqua to-neon-blue",
   },
 ];
 

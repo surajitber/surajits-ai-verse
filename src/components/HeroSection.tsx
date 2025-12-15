@@ -146,7 +146,7 @@ const HeroSection = () => {
         </div>
 
         {!isTyping && (
-          <div className="mt-12 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
+          <div className="mt-12 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
             <Button
               onClick={scrollToProjects}
               size="lg"

@@ -103,15 +103,15 @@ const ExperienceSection = () => {
         {/* Timeline */}
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-blue via-neon-purple to-neon-aqua" />
+          <div className="absolute left-8 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-blue via-neon-purple to-neon-aqua" />
 
           {timelineItems.map((item, index) => (
             <div
               key={item.id}
-              className={`relative flex items-center mb-12 ${
+              className={`relative flex flex-col md:flex-row items-start md:items-center mb-12 ${
                 index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               } ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-              style={{ animationDelay: `${index * 0.15}s` }}
+              style={{ animationDelay: `${index * 0.15}s`, animationFillMode: "both" }}
             >
               {/* Timeline node */}
               <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-10">

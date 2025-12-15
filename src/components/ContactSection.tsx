@@ -39,18 +39,21 @@ const ContactSection = () => {
     
     try {
       // Save to database
-      const { error } = await supabase.functions.invoke("contact", {
+      const { error: contactError } = await supabase.functions.invoke("contact", {
         body: formData,
       });
 
-      if (error) throw error;
+      if (contactError) throw contactError;
 
       // Send email notification
-      await supabase.functions.invoke("send-email", {
+      const { error: emailError } = await supabase.functions.invoke("send-email", {
         body: formData,
       });
 
-      if (error) throw error;
+      if (emailError) {
+        console.error("Email notification failed:", emailError);
+        // Don't throw - contact was saved, email is secondary
+      }
 
       toast({
         title: "Message Sent!",

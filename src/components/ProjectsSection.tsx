@@ -15,6 +15,8 @@ interface Project {
   colabLink?: string;
   githubLink?: string;
   features: string[];
+  demoGif?: string;
+  videoEmbed?: string;
 }
 
 const projects: Project[] = [
@@ -35,6 +37,8 @@ const projects: Project[] = [
       "Real-time video processing",
       "Multi-person tracking",
     ],
+    demoGif: "https://raw.githubusercontent.com/CMU-Perceptual-Computing-Lab/openpose/master/.github/media/pose_face_hands.gif",
+    videoEmbed: "https://www.youtube.com/embed/pW6nZXeWlGM",
   },
   {
     id: "image-processing",
@@ -53,6 +57,7 @@ const projects: Project[] = [
       "Histogram equalization",
       "Edge detection (Sobel, Canny)",
     ],
+    demoGif: "https://upload.wikimedia.org/wikipedia/commons/2/21/Mandrill_beide.jpg",
   },
   {
     id: "ml-models",
@@ -71,6 +76,7 @@ const projects: Project[] = [
       "Training visualizations",
       "Model comparison metrics",
     ],
+    demoGif: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/640px-Kernel_Machine.svg.png",
   },
   {
     id: "emotion-detection",
@@ -89,6 +95,8 @@ const projects: Project[] = [
       "Pre-trained model included",
       "Easy to use interface",
     ],
+    demoGif: "https://miro.medium.com/v2/resize:fit:1400/1*96rPM9jjdQgKxLQbRYbvNQ.gif",
+    videoEmbed: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
 ];
 
@@ -214,6 +222,35 @@ const ProjectsSection = () => {
               </DialogHeader>
 
               <div className="space-y-6 mt-4">
+                {/* Demo GIF / Video */}
+                {(selectedProject.demoGif || selectedProject.videoEmbed) && (
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-neon-blue flex items-center gap-2">
+                      <Play className="w-4 h-4" />
+                      Live Demo
+                    </h4>
+                    {selectedProject.videoEmbed ? (
+                      <div className="aspect-video rounded-xl overflow-hidden border border-border/50">
+                        <iframe
+                          src={selectedProject.videoEmbed}
+                          title={`${selectedProject.title} demo`}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : selectedProject.demoGif && (
+                      <div className="rounded-xl overflow-hidden border border-border/50 bg-muted/30">
+                        <img
+                          src={selectedProject.demoGif}
+                          alt={`${selectedProject.title} demo`}
+                          className="w-full h-auto object-cover max-h-64"
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Features */}
                 <div>
                   <h4 className="font-semibold mb-3 text-neon-aqua">Key Features</h4>

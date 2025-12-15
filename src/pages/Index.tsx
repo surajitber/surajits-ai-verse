@@ -6,6 +6,8 @@ import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
+import PlaygroundSection from "@/components/PlaygroundSection";
+import AIChatbot from "@/components/AIChatbot";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -27,12 +29,16 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
+        <PlaygroundSection />
         <ExperienceSection />
         <ContactSection />
       </main>
       
       {/* Footer */}
       <Footer />
+      
+      {/* AI Chatbot */}
+      <AIChatbot />
       
       {/* Cursor glow effect */}
       <div 

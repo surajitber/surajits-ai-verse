@@ -4,6 +4,8 @@ import ParticleField from "@/components/ParticleField";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import EducationSection from "@/components/EducationSection";
+import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import PlaygroundSection from "@/components/PlaygroundSection";
@@ -30,6 +32,8 @@ const Index = () => {
         <AboutSection />
         <ProjectsSection />
         <PlaygroundSection />
+        <EducationSection />
+        <BlogSection />
         <ExperienceSection />
         <ContactSection />
       </main>

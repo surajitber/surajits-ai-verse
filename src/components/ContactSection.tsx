@@ -38,7 +38,15 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
+      // Save to database
       const { error } = await supabase.functions.invoke("contact", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      // Send email notification
+      await supabase.functions.invoke("send-email", {
         body: formData,
       });
 
